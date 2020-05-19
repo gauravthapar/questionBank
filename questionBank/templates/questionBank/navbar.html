@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Question Bank</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    {% if user.is_authenticated %}
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="">COntact uS</a>
+      </li>
+    </ul>
+    <div class="dropdown ml-auto">
+        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hello, {{ user.username }}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#" onclick="$('#signOutBtn').click()" class="nav-link">Logout</a>
+            <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
+        </div>
+    </div>
+    <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
+        {% csrf_token %}
+        <button id="signOutBtn" type="submit">Logout</button>
+    </form>
+  </div>
+  {% else %}
+    <div class="nav-item ml-auto">
+        <a class="nav-link btn btn-dark" href="{% url 'signupuser' %}">Sign Up</a>
+    </div>
+    <div>
+        <a class="nav-link btn btn-dark" href="{% url 'loginuser' %}">Login</a>
+    </div>
+    {% endif %}
+</nav>
+
