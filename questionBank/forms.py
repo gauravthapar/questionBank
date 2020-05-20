@@ -2,7 +2,7 @@ from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from . models import Student
+from . models import Student, QuestionPaper
 
 class SignupForm(UserCreationForm):
     username = forms.CharField(max_length=30)
@@ -25,3 +25,9 @@ class StudentForm(ModelForm):
         model = Student
         fields = '__all__'
         exclude = ['user']
+
+
+class QuestionPaperForm(ModelForm):
+    class Meta:
+        model = QuestionPaper
+        fields = '__all__'

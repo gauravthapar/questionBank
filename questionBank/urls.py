@@ -4,7 +4,8 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.home, name="home"),
-    path('profile/',views.student_profile,name='student_profile'),
+    path('profile/',views.studentProfile,name='student_profile'),
+    path('upload/',views.uploadPage, name="upload_page"),
 
     #auth usrls
     path('signup/',views.signupuser, name="signupuser"),

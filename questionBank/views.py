@@ -1,6 +1,6 @@
 from django.shortcuts import render , redirect
 from django.http import HttpResponse
-from . forms import SignupForm, StudentForm
+from . forms import SignupForm, StudentForm, QuestionPaperForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
@@ -53,7 +53,7 @@ def loginuser(request):
         return render(request,'questionBank/loginuser.html',context)
 
 
-def student_profile(request):
+def studentProfile(request):
     student = request.user.student
     form = StudentForm(instance=student)
     if request.method == "POST":
@@ -65,6 +65,19 @@ def student_profile(request):
         'form':form,
     }
     return render(request, 'questionBank/profile.html',context)
+
+
+def uploadPage(request):
+    form = QuestionPaperForm()
+    if request.method == "POST":
+        form = QuestionPaperForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    context = {
+        'form':form
+    }
+    return render(request, 'questionBank/upload.html', context)
 
 
 def logoutuser(request):

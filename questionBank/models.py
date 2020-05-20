@@ -47,4 +47,7 @@ class QuestionPaper(models.Model):
     year = models.CharField(max_length=4, null=True)
     examType = models.CharField(max_length=50, null=True, choices=EXAMTYPE)
 
+    def __str__(self):
+        return self.subjectName
+
     
