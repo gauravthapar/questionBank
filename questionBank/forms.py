@@ -2,6 +2,7 @@ from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from . models import Student
 
 class SignupForm(UserCreationForm):
     username = forms.CharField(max_length=30)
@@ -17,3 +18,10 @@ class SignupForm(UserCreationForm):
         if email_qs.exists():
             raise forms.ValidationError('email already registered')
         return email
+
+
+class StudentForm(ModelForm):
+    class Meta:
+        model = Student
+        fields = '__all__'
+        exclude = ['user']

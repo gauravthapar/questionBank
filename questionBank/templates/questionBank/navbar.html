@@ -6,11 +6,14 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     {% if user.is_authenticated %}
     <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="">Dashboard</a>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'home'%}">Dashboard</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="">COntact uS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'student_profile'%}">Profile</a>
       </li>
     </ul>
     <div class="dropdown ml-auto">
