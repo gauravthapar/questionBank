@@ -19,6 +19,13 @@
         <a class="nav-link" href="{% url 'upload_page'%}">Upload</a>
       </li>
     </ul>
+    <div>
+      <form class="form-inline" action="{% url 'searchResult' %}" method="get">
+        {% csrf_token%}
+        <input id="search_bar" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
     <div class="dropdown ml-auto">
         <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Hello, {{ user.username }}

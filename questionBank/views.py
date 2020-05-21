@@ -4,10 +4,16 @@ from . forms import SignupForm, StudentForm, QuestionPaperForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
+from . models import QuestionPaper
+from . filters import QuestionpaperFilter
+from django.db.models import Q
 # Create your views here.
 
 def home(request):
-    context = {}
+    questionPapers = QuestionPaper.objects.all()
+    context = {
+        'questionPapers':questionPapers,
+    }
     return render(request,'questionBank/dashboard.html',context)
 
 
@@ -33,6 +39,18 @@ def signupuser(request):
         }
         return render(request, 'questionBank/signupuser.html', context)
 
+
+def searchResult(request):
+    questionPapers = None
+    query = None
+    if 'q' in request.GET:
+        query = request.GET.get('q')
+        questionPapers = QuestionPaper.objects.all().filter(Q(subjectName__icontains=query) | Q(subjectCode__icontains=query) | Q(year__icontains=query) |Q(examType__icontains=query))
+    context = {
+        'questionPapers':questionPapers,
+        'query':query,
+    }
+    return render(request, 'questionBank/search.html',context)
 
 def loginuser(request):
     if request.method == "POST":

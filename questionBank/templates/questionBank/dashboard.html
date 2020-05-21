@@ -1,5 +1,36 @@
-{%  extends 'questionBank/main.html' %}
+{% extends 'questionBank/main.html' %}
 {% load static %}
 {% block content %}
 <h5> home </h5>
+
+<br>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+                    <th>Serial No.</th>
+                    <th>Uploaded on</th>
+					<th>subjectName</th>
+					<th>subjectCode</th>
+					<th>year</th>
+					<th>examType</th>
+                    <th>File</th>
+				</tr>
+				{% for questionPaper in questionPapers %}
+					<tr>
+                        <td>{{ forloop.counter }} </td>
+                        <td>{{ questionPaper.date_created|date:'M j,Y' }}</td>
+						<td>{{ questionPaper.subjectName }}</td>
+						<td>{{ questionPaper.subjectCode }}</td>
+						<td>{{ questionPaper.year }}</td>
+                        <td>{{ questionPaper.examType }}</td>
+						<td><a href="{{ questionPaper.File.url }}" download> {{questionPaper.File}}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+
 {% endblock %}

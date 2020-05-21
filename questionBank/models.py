@@ -41,13 +41,9 @@ class QuestionPaper(models.Model):
         ('Minor','Minor'),
         ('Major','Major')
     )
-    File = models.FileField(null=True)
+    File = models.FileField(null=True, blank=True)
     subjectName = models.CharField(max_length=100, null=True)
     subjectCode = models.CharField(max_length=15, null=True)
     year = models.CharField(max_length=4, null=True)
     examType = models.CharField(max_length=50, null=True, choices=EXAMTYPE)
-
-    def __str__(self):
-        return self.subjectName
-
-    
+    date_created = models.DateTimeField(auto_now_add=True)

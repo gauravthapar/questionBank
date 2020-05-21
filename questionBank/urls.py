@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.home, name="home"),
     path('profile/',views.studentProfile,name='student_profile'),
     path('upload/',views.uploadPage, name="upload_page"),
+    path('search/',views.searchResult, name="searchResult"),
 
     #auth usrls
     path('signup/',views.signupuser, name="signupuser"),
