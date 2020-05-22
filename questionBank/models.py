@@ -47,3 +47,16 @@ class QuestionPaper(models.Model):
     year = models.CharField(max_length=4, null=True)
     examType = models.CharField(max_length=50, null=True, choices=EXAMTYPE)
     date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.subjectName
+
+
+class Feedback(models.Model):
+    student = models.ForeignKey(Student, null=True,blank=True, on_delete=models.SET_NULL)
+    name = models.CharField(max_length=200, null=True)
+    email = models.EmailField(null=True)
+    message = models.TextField(null=True)
+    
+    def __str__(self):
+        return self.name

@@ -4,9 +4,11 @@ from . forms import SignupForm, StudentForm, QuestionPaperForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from . models import QuestionPaper
-from . filters import QuestionpaperFilter
+from . models import QuestionPaper, Student, Feedback
 from django.db.models import Q
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
 # Create your views here.
 
 def home(request):
@@ -96,6 +98,26 @@ def uploadPage(request):
         'form':form
     }
     return render(request, 'questionBank/upload.html', context)
+
+
+def contactPage(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+        student = request.user.student
+        feedback = Feedback(student=student,name=name, email=email, message=message)
+        feedback.save()
+        template = render_to_string('questionBank/feedback_template.html',{'name':request.user.student.name})
+        email = EmailMessage(
+            'Thanks for your feedback',
+            template,
+            settings.EMAIL_HOST_USER,
+            [request.user.email],
+        )
+        email .fail_silently =False
+        email.send()
+    return render(request, 'questionBank/contact.html')
 
 
 def logoutuser(request):
