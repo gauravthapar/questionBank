@@ -31,3 +31,7 @@ class QuestionPaperForm(ModelForm):
     class Meta:
         model = QuestionPaper
         fields = '__all__'
+
+
+    
+    

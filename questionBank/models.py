@@ -38,7 +38,8 @@ class Student(models.Model):
 
 class QuestionPaper(models.Model):
     EXAMTYPE = (
-        ('Minor','Minor'),
+        ('Minor-1','Minor-1'),
+        ('Minor-2','Minor-2'),
         ('Major','Major')
     )
     File = models.FileField(null=True, blank=True)
@@ -50,6 +51,14 @@ class QuestionPaper(models.Model):
 
     def __str__(self):
         return self.subjectName
+
+    @property
+    def fileURL(self):
+        try:
+            url = self.File.url
+        except:
+            url = ''
+        return url
 
 
 class Feedback(models.Model):

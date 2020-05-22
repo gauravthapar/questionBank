@@ -9,16 +9,13 @@ from django.db.models import Q
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
+from . decorators import unauthenticated_user
+
 # Create your views here.
 
-def home(request):
-    questionPapers = QuestionPaper.objects.all()
-    context = {
-        'questionPapers':questionPapers,
-    }
-    return render(request,'questionBank/dashboard.html',context)
 
-
+@unauthenticated_user
 def signupuser(request):
     form = SignupForm(request.POST)
     if request.method == "POST":
@@ -42,6 +39,17 @@ def signupuser(request):
         return render(request, 'questionBank/signupuser.html', context)
 
 
+
+@login_required(login_url="loginuser")
+def home(request):
+    questionPapers = QuestionPaper.objects.all()
+    context = {
+        'questionPapers':questionPapers,
+    }
+    return render(request,'questionBank/dashboard.html',context)
+
+
+@login_required(login_url="loginuser")
 def searchResult(request):
     questionPapers = None
     query = None
@@ -54,6 +62,8 @@ def searchResult(request):
     }
     return render(request, 'questionBank/search.html',context)
 
+
+@unauthenticated_user
 def loginuser(request):
     if request.method == "POST":
         user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
@@ -73,6 +83,7 @@ def loginuser(request):
         return render(request,'questionBank/loginuser.html',context)
 
 
+@login_required(login_url="loginuser")
 def studentProfile(request):
     student = request.user.student
     form = StudentForm(instance=student)
@@ -87,12 +98,26 @@ def studentProfile(request):
     return render(request, 'questionBank/profile.html',context)
 
 
+@login_required(login_url="loginuser")
 def uploadPage(request):
     form = QuestionPaperForm()
     if request.method == "POST":
         form = QuestionPaperForm(request.POST, request.FILES)
+        subjectCode = request.POST.get('subjectCode')
+        subjectName = request.POST.get('subjectName')
+        year = request.POST.get('year')
+        examType = request.POST.get('examType')
+        paper_qs = None
+        print(paper_qs)
+        paper_qs  = QuestionPaper.objects.all().filter(subjectCode=subjectCode,subjectName=subjectName,year=year,examType=examType)
+        print(paper_qs)
         if form.is_valid():
-            form.save()
+            if paper_qs.exists():
+                #raise forms.ValidationError('already exists')
+                print('already exists')
+            else:
+                print('saved')
+                form.save()
             return redirect('home')
     context = {
         'form':form
@@ -100,6 +125,7 @@ def uploadPage(request):
     return render(request, 'questionBank/upload.html', context)
 
 
+@login_required(login_url="loginuser")
 def contactPage(request):
     if request.method == "POST":
         name = request.POST.get('name')

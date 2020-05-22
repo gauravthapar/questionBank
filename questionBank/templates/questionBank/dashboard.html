@@ -25,7 +25,7 @@
 						<td>{{ questionPaper.subjectCode }}</td>
 						<td>{{ questionPaper.year }}</td>
                         <td>{{ questionPaper.examType }}</td>
-						<td><a href="{{ questionPaper.File.url }}" download> {{questionPaper.File}}</td>
+						<td><a href="{{ questionPaper.fileURL }}" download> {{questionPaper.File}}</td>
 					</tr>
 				{% endfor %}
 			</table>
