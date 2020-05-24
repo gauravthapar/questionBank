@@ -18,19 +18,19 @@
 				</div> {% endcomment %}
 				<div class="form-group">
 					<label for="name">subjectName</label>
-					<input type="text" class="form-control" id="name" name='subjectName'>
+					<input type="text" class="form-control" value="{{papers.details.subjectName}}" id="name" name='subjectName'>
 				</div>
 				<div class="form-group">
 					<label for="subjectCode">sunjectCode</label>
-					<input type="text" class="form-control" id="subjectCode" name='subjectCode'>
+					<input type="text" class="form-control" value="{{papers.details.subjectCode}}" id="subjectCode" name='subjectCode'>
 				</div>
 				<div class="form-group">
 					<label for="year">year</label>
-					<input type="text" class="form-control" id="year" name='year'>
+					<input type="text" class="form-control" value="{{papers.details.year}}" id="year" name='year'>
 				</div>
 				<div class="form-group">
 					<label for="examType">examType</label>
-					<input type="text" class="form-control" id="examType" name='examType'>
+					<input type="text" class="form-control" value="{{papers.details.examType}}" id="examType" name='examType'>
 				</div>
 			<input class="btn btn-primary" type="submit" name="Update Information">
 			</form> 

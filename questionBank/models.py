@@ -36,13 +36,12 @@ class Student(models.Model):
         return self.name
     
 
-class QuestionPaper(models.Model):
+class QuestionPaperDetail(models.Model):
     EXAMTYPE = (
         ('Minor-1','Minor-1'),
         ('Minor-2','Minor-2'),
         ('Major','Major')
     )
-    File = models.FileField(null=True, blank=True)
     subjectName = models.CharField(max_length=100, null=True)
     subjectCode = models.CharField(max_length=15, null=True)
     year = models.CharField(max_length=4, null=True)
@@ -51,6 +50,12 @@ class QuestionPaper(models.Model):
 
     def __str__(self):
         return self.subjectName
+
+    
+
+class QuestionPaper(models.Model):
+    File = models.FileField(null=True, blank=True)
+    details = models.ForeignKey(QuestionPaperDetail, null=True, on_delete=models.CASCADE)
 
     @property
     def fileURL(self):

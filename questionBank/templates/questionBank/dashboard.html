@@ -16,16 +16,18 @@
 					<th>year</th>
 					<th>examType</th>
                     <th>File</th>
+					<th>Update</th>
 				</tr>
 				{% for questionPaper in questionPapers %}
 					<tr>
                         <td>{{ forloop.counter }} </td>
-                        <td>{{ questionPaper.date_created|date:'M j,Y' }}</td>
-						<td>{{ questionPaper.subjectName }}</td>
-						<td>{{ questionPaper.subjectCode }}</td>
-						<td>{{ questionPaper.year }}</td>
-                        <td>{{ questionPaper.examType }}</td>
+                        <td>{{ questionPaper.deatils.date_created|date:'M j,Y' }}</td>
+						<td>{{ questionPaper.details.subjectName }}</td>
+						<td>{{ questionPaper.details.subjectCode }}</td>
+						<td>{{ questionPaper.details.year }}</td>
+                        <td>{{ questionPaper.details.examType }}</td>
 						<td><a href="{{ questionPaper.fileURL }}" download> {{questionPaper.File}}</td>
+						<td><a class="btn btn-outline-info btn-sm "href="{% url 'update' questionPaper.id%}">Update</a></td>
 					</tr>
 				{% endfor %}
 			</table>

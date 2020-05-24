@@ -4,7 +4,7 @@ from . forms import SignupForm, StudentForm, QuestionPaperForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from . models import QuestionPaper, Student, Feedback
+from . models import QuestionPaper, Student, Feedback, QuestionPaperDetail
 from django.db.models import Q
 from django.core.mail import EmailMessage
 from django.conf import settings
@@ -43,6 +43,8 @@ def signupuser(request):
 @login_required(login_url="loginuser")
 def home(request):
     questionPapers = QuestionPaper.objects.all()
+    name = questionPapers[0].details.subjectName
+    print(name)
     context = {
         'questionPapers':questionPapers,
     }
@@ -103,26 +105,57 @@ def uploadPage(request):
     form = QuestionPaperForm()
     if request.method == "POST":
         form = QuestionPaperForm(request.POST, request.FILES)
+        File1 = request.FILES.get('File1')
+        #File2 = request.FILES.get('File2')
         subjectCode = request.POST.get('subjectCode')
         subjectName = request.POST.get('subjectName')
         year = request.POST.get('year')
         examType = request.POST.get('examType')
         paper_qs = None
         print(paper_qs)
-        paper_qs  = QuestionPaper.objects.all().filter(subjectCode=subjectCode,subjectName=subjectName,year=year,examType=examType)
-        print(paper_qs)
-        if form.is_valid():
+        print(File1,subjectCode,subjectName,year,examType)
+        #paper_qs  = QuestionPaper.objects.all().filter(subjectCode=subjectCode,subjectName=subjectName,year=year,examType=examType)
+        paper = QuestionPaperDetail(
+            subjectName=subjectName,
+            subjectCode=subjectCode,
+            year=year,
+            examType=examType
+        )
+        paper.save()
+        paper_file1= QuestionPaper(
+            File=File1,
+            details=paper
+        )
+        paper_file1.save()
+        '''paper_file2 = QuestionPaper(
+            File=File2,
+            details=paper
+        )
+        paper_file2.save()'''
+        '''if form.is_valid():
             if paper_qs.exists():
                 #raise forms.ValidationError('already exists')
                 print('already exists')
             else:
                 print('saved')
-                form.save()
-            return redirect('home')
+                form.save()'''
+            #return redirect('home')
     context = {
         'form':form
     }
     return render(request, 'questionBank/upload.html', context)
+
+
+def update(request, pk):
+    papers = QuestionPaper.objects.get(id=pk)
+    print(papers.details.subjectName)
+    print(papers.details.subjectCode)
+    print(papers.File)
+    context = {
+        'papers':papers,
+    }
+    return render(request,'questionBank/update.html',context)
+
 
 
 @login_required(login_url="loginuser")
@@ -132,7 +165,12 @@ def contactPage(request):
         email = request.POST.get('email')
         message = request.POST.get('message')
         student = request.user.student
-        feedback = Feedback(student=student,name=name, email=email, message=message)
+        feedback = Feedback(
+            student=student,
+            name=name,
+            email=email,
+            message=message
+        )
         feedback.save()
         template = render_to_string('questionBank/feedback_template.html',{'name':request.user.student.name})
         email = EmailMessage(
@@ -141,7 +179,7 @@ def contactPage(request):
             settings.EMAIL_HOST_USER,
             [request.user.email],
         )
-        email .fail_silently =False
+        email.fail_silently =False
         email.send()
     return render(request, 'questionBank/contact.html')
 

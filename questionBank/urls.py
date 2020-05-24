@@ -8,6 +8,7 @@ urlpatterns = [
     path('upload/',views.uploadPage, name="upload_page"),
     path('search/',views.searchResult, name="searchResult"),
     path('contactus/',views.contactPage, name="contactus"),
+    path('update/<str:pk>',views.update,name="update"),
 
     #auth usrls
     path('signup/',views.signupuser, name="signupuser"),
