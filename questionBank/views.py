@@ -42,9 +42,8 @@ def signupuser(request):
 
 @login_required(login_url="loginuser")
 def home(request):
-    questionPapers = QuestionPaper.objects.all()
-    name = questionPapers[0].details.subjectName
-    print(name)
+    questionPapers = QuestionPaperDetail.objects.all()
+
     context = {
         'questionPapers':questionPapers,
     }
@@ -99,62 +98,63 @@ def studentProfile(request):
     }
     return render(request, 'questionBank/profile.html',context)
 
-
+    
 @login_required(login_url="loginuser")
 def uploadPage(request):
     form = QuestionPaperForm()
+    flag = False
+    print(flag)
     if request.method == "POST":
         form = QuestionPaperForm(request.POST, request.FILES)
-        File1 = request.FILES.get('File1')
-        #File2 = request.FILES.get('File2')
-        subjectCode = request.POST.get('subjectCode')
         subjectName = request.POST.get('subjectName')
+        subjectCode = request.POST.get('subjectCode')
         year = request.POST.get('year')
         examType = request.POST.get('examType')
-        paper_qs = None
-        print(paper_qs)
-        print(File1,subjectCode,subjectName,year,examType)
-        #paper_qs  = QuestionPaper.objects.all().filter(subjectCode=subjectCode,subjectName=subjectName,year=year,examType=examType)
-        paper = QuestionPaperDetail(
+        Files = request.FILES.getlist('File')
+        paper_qs  = QuestionPaperDetail.objects.all().filter(subjectCode=subjectCode,subjectName=subjectName,year=year,examType=examType)
+        
+        if paper_qs.exists():
+            print('already in database')
+            flag = True
+            print('flag:',flag)
+            return render(request,'questionBank/upload_error.html')
+        else:
+            paper = QuestionPaperDetail(
             subjectName=subjectName,
             subjectCode=subjectCode,
             year=year,
             examType=examType
-        )
-        paper.save()
-        paper_file1= QuestionPaper(
-            File=File1,
-            details=paper
-        )
-        paper_file1.save()
-        '''paper_file2 = QuestionPaper(
-            File=File2,
-            details=paper
-        )
-        paper_file2.save()'''
-        '''if form.is_valid():
-            if paper_qs.exists():
-                #raise forms.ValidationError('already exists')
-                print('already exists')
-            else:
-                print('saved')
-                form.save()'''
-            #return redirect('home')
+            )   
+            paper.save()
+            for f in Files:
+                #print(f)
+                paper_file = QuestionPaper(
+                    File=f,
+                    details=paper
+                )
+                paper_file.save()
+            return redirect('home')
+            print('saved')
+            print(flag)
     context = {
-        'form':form
+        'form':form,
+        'flag':flag,
     }
-    return render(request, 'questionBank/upload.html', context)
+    return render(request, 'questionBank/upload1.html', context)
 
 
-def update(request, pk):
-    papers = QuestionPaper.objects.get(id=pk)
-    print(papers.details.subjectName)
-    print(papers.details.subjectCode)
-    print(papers.File)
+def viewPage(request, pk):
+    questionPaperDetails = QuestionPaperDetail.objects.get(id=pk)
+    print(questionPaperDetails)
+    print(questionPaperDetails.subjectName)
+    print(questionPaperDetails.subjectCode)
+    questionPaperFiles = questionPaperDetails.questionpaper_set.all()
+    print(questionPaperFiles)
     context = {
-        'papers':papers,
+        'questionPaperDetails':questionPaperDetails,
+        'questionPaperFiles':questionPaperFiles,
     }
-    return render(request,'questionBank/update.html',context)
+    return render(request,'questionBank/view_papers.html',context)
 
 
 

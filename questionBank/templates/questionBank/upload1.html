@@ -1,0 +1,25 @@
+{% extends 'questionBank/main.html' %}
+{% block content %}
+
+<div class="col-md-9">
+    <div class="card card-body">
+        <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+    
+        <input class="btn btn-primary" type="submit" name="Update Information">
+        </form> 
+        <hr>
+        {% for message in messages %}
+            <p id="messages">{{message}}</p>
+        {% endfor %}	
+        {% comment %} {% if flag == "True" %}
+            <div class="alert alert-danger" role="alert">
+                A simple danger alert—check it out!
+            </div>
+        {% endif %} {% endcomment %}
+        <hr>
+    </div>
+</div>
+
+{% endblock %}

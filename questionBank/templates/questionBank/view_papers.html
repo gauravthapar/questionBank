@@ -1,0 +1,32 @@
+{% extends 'questionBank/main.html' %}
+{% block content %}
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+                    <th>Uploaded on</th>
+					<th>subjectName</th>
+					<th>subjectCode</th>
+					<th>year</th>
+					<th>examType</th>
+                    {% comment %} <th>File</th> {% endcomment %}
+				</tr>
+					<tr>
+                        {% comment %} <td>{{ questionPapers.date_created|date:'M j,Y' }}</td> {% endcomment %}
+						<td>{{ questionPaperDetails.subjectName }}</td>
+						<td>{{ questionPaperDetails.subjectCode }}</td>
+						<td>{{ questionPaperDetails.year }}</td>
+                        <td>{{ questionPaperDetails.examType }}</td>
+						{% for questionPaperFile in questionPaperFiles %}
+						<td><a href="{{ questionPaperFile.fileURL }}" download> {{questionPaperFile.File}}</td>
+						{% endfor %}
+					</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

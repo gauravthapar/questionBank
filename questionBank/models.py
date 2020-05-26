@@ -46,7 +46,7 @@ class QuestionPaperDetail(models.Model):
     subjectCode = models.CharField(max_length=15, null=True)
     year = models.CharField(max_length=4, null=True)
     examType = models.CharField(max_length=50, null=True, choices=EXAMTYPE)
-    date_created = models.DateTimeField(auto_now_add=True)
+    
 
     def __str__(self):
         return self.subjectName
@@ -56,6 +56,8 @@ class QuestionPaperDetail(models.Model):
 class QuestionPaper(models.Model):
     File = models.FileField(null=True, blank=True)
     details = models.ForeignKey(QuestionPaperDetail, null=True, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)
+
 
     @property
     def fileURL(self):
