@@ -9,6 +9,7 @@ urlpatterns = [
     path('search/',views.searchResult, name="searchResult"),
     path('contactus/',views.contactPage, name="contactus"),
     path('view/<str:pk>',views.viewPage, name="viewpage"),
+    path('verify/<uidb64>/<token>', views.verify_account, name="verify_account"),
 
     #auth usrls
     path('signup/',views.signupuser, name="signupuser"),

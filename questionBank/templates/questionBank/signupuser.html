@@ -1,12 +1,12 @@
-{%  extends 'questionBank/main.html' %}
+{% extends 'questionBank/main.html' %}
 {% load static %}
 {% block content %}
     <div class="row justify-content-center mt-5">
-        <div class="col-md-5">
+        <div class=" form-title col-md-5">
             <h2>Sign Up</h2>
         </div>
     </div>
-    <div class="row justify-content-center mt-5">
+    <div class="row justify-content-center mt-5 form-wrapper" id="register-form-wrapper">
         <div class="col-md-5">
             {% if error %}
                 <div class="alert alert-danger" role="alert">
@@ -15,19 +15,19 @@
             {% endif %}
             <form method="POST">
                 {% csrf_token %}
-                <div class="form-group">
+                <div class="form-group field-wrapper">
                     <label for="email">Email address:</label>
                     <input type="email" name="email" class="form-control" autocomplete="off" maxlength="254" id="email"> 
                 </div>
-                <div class="form-group">
+                <div class="form-group field-wrapper">
                     <label for="username">Username</label>
                     <input type="text" name="username" autocomplete="off" class="form-control" id="username" aria-describedby="usernameHelp">
                 </div>
-                <div class="form-group">
+                <div class="form-group field-wrapper">
                     <label for="password1">Password</label>
                     <input type="password" name="password1" autocomplete="off" class="form-control" id="password1">
                 </div>
-                <div class="form-group">
+                <div class="form-group field-wrapper">
                     <label for="password2">Confirm Password</label>
                     <input type="password" name="password2" autocomplete="off" class="form-control" id="password2">
                 </div>

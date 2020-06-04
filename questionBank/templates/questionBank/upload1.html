@@ -1,25 +1,40 @@
 {% extends 'questionBank/main.html' %}
 {% block content %}
-
-<div class="col-md-9">
+<dvi class="container">
+<div class="col-md-9" style="margin-left: 200px;">
     <div class="card card-body">
         <form method="POST" action="" enctype="multipart/form-data">
             {% csrf_token %}
-            {{form.as_p}}
-    
+            {% comment %} {{form.as_p}} {% endcomment %}
+            <div class="form-group">
+                <label for="id_File1">File input</label>
+                <input type="file" class="form-control-file" multiple required id="id_File" name="File" style="width: auto;">
+            </div>
+            <div class="form-group">
+                <label for="id_subjectName">Subject Name</label>
+                <input type="text" class="form-control" maxlenght="30" id="id_subjectName" name="subjectName" style="width: auto;">
+            </div>
+            <div class="form-group">
+                <label for="id_subjectCode">Subject Code</label>
+                <input type="text" class="form-control" maxlenght="30" id="id_subjectCode" name="subjectCode" style="width: auto;">
+            </div>
+            <div class="form-group">
+                <label for="id_year">Year</label>
+                <input type="text" class="form-control" maxlenght="10" id="id_year" name="year" style="width: auto;">
+            </div>
+            <div class="form-group">
+                <label for="id_examType">Exam Type</label>
+                <input type="text" class="form-control" id="id_examType" maxlenght="30" name="examType" style="width: auto;">
+            </div>    
         <input class="btn btn-primary" type="submit" name="Update Information">
         </form> 
         <hr>
         {% for message in messages %}
             <p id="messages">{{message}}</p>
-        {% endfor %}	
-        {% comment %} {% if flag == "True" %}
-            <div class="alert alert-danger" role="alert">
-                A simple danger alert—check it out!
-            </div>
-        {% endif %} {% endcomment %}
+        {% endfor %}
         <hr>
     </div>
+</div>
 </div>
 
 {% endblock %}

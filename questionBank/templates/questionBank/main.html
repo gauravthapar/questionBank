@@ -4,7 +4,47 @@
 <head>
 	<title>Question Bank</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}"> {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+          crossorigin="anonymous">
+    <style type="text/css">
+        .pagination {
+    text-align: center;
+    margin-top: 1em;
+    margin-left: 750px;
+}
+
+.pagination a {
+    text-decoration: none;
+}
+
+.pagination-number {
+    padding: 0.5em 0.8em;
+    border-radius: 2px;
+    color: #fff;
+    background-color: #007bff;
+}
+
+.pagination-number:hover,
+.pagination-current {
+    background-color: #343a40;
+}
+
+.pagination-action {
+    margin: 0 0.1em;
+    display: inline-block;
+    padding: 0.5em 0.5em;
+    color: #B9B9B9;
+    font-size: 1.3em;
+}
+
+.pagination-action:hover,
+.pagination-previous,
+.pagination-next {
+    color: #3354AA;
+}
+</style>
     <style type="text/css">
         #dropdownMenuButton{
         margin-right: 40px;
@@ -16,12 +56,13 @@
         margin-top: 10px;
         }
         #search_bar{
-            margin-left: 720px;
+            margin-left: 600px;
         }
     </style>
+    
 </head>
 <body>
-	{%  include 'questionBank/navbar.html' %}
+	{% include 'questionBank/navbar.html' %}
 	<div class="container-fluid">
 	{% block content %}
 

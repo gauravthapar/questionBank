@@ -11,28 +11,24 @@
 			<table class="table table-sm">
 				<tr>
                     <th>Serial No.</th>
-                    <th>Uploaded on</th>
+					<th>Uploaded on </th>
 					<th>subjectName</th>
 					<th>subjectCode</th>
 					<th>year</th>
 					<th>examType</th>
-                    <th>File</th>
 				</tr>
 				{% for questionPaper in questionPapers %}
 					<tr>
                         <td>{{ forloop.counter }} </td>
-                        <td>{{ questionPaper.date_created|date:'M j,Y' }}</td>
+						<td>{{ questionPaper.date_created|date:'M j, Y'  }}</td>
 						<td>{{ questionPaper.subjectName }}</td>
 						<td>{{ questionPaper.subjectCode }}</td>
 						<td>{{ questionPaper.year }}</td>
                         <td>{{ questionPaper.examType }}</td>
-						<td><a href="{{ questionPaper.File.url }}" download> {{questionPaper.File}}</td>
+						<td><a class="btn btn-outline-info btn-sm "href="{% url 'viewpage' questionPaper.id%}">View</a></td>
 					</tr>
-                {% empty %}
-                <div class="row mx-auto">
-                    <p class="text-center my_search_text"> 0 results found. </p>
-                </div>
 				{% endfor %}
+			</table>
 			</table>
 		</div>
 	</div>
