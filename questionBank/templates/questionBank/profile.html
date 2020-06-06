@@ -32,7 +32,7 @@
 			</div>
 			<div class="form-group">
 				<label for="id_Class">Class </label> <select class="form-control" name="Class" value="{{ student.Class }}" required="" id="id_Class" style="width: auto;" type="text">
-				{% comment %} <option value="">---------</option> {% endcomment %}
+				<option value="{{ student.Class }}">{{ student.Class }}</option>
 
 				<option value="B.Tech-CSE">B.Tech-CSE</option>
 

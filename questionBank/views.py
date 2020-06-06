@@ -75,7 +75,7 @@ def verify_account(request, uidb64, token):
 
 @login_required(login_url="loginuser")
 def home(request):
-    questionPapers = QuestionPaperDetail.objects.all()
+    questionPapers = QuestionPaperDetail.objects.all().order_by('-date_created')
     paginator = Paginator(questionPapers, 10)
     page = request.GET.get('page')
     questionPapers = paginator.get_page(page)
@@ -213,7 +213,11 @@ def contactPage(request):
         )
         email.fail_silently =False
         email.send()
-    return render(request, 'questionBank/contact.html')
+        return redirect('home')
+    else:
+        student = request.user.student
+        return render(request, 'questionBank/contact.html',{'student':student})
+
 
 
 def logoutuser(request):
