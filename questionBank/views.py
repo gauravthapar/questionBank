@@ -39,7 +39,7 @@ def signupuser(request):
             email = EmailMessage(
                 'Verify your Account',
                 message,
-                'gauravt.crio.ta@gmail.com',
+                settings.EMAIL_HOST_USER,
                 [form.cleaned_data.get('email')],
             )
             email.fail_silently = False
@@ -92,6 +92,9 @@ def searchResult(request):
     if 'q' in request.GET:
         query = request.GET.get('q')
         questionPapers = QuestionPaperDetail.objects.all().filter(Q(subjectName__icontains=query) | Q(subjectCode__icontains=query) | Q(year__icontains=query) |Q(examType__icontains=query))
+        paginator = Paginator(questionPapers, 10)
+        page = request.GET.get('page')
+        questionPapers = paginator.get_page(page)
     context = {
         'questionPapers':questionPapers,
         'query':query,
@@ -205,7 +208,7 @@ def contactPage(request):
         email = EmailMessage(
             'Thanks for your feedback',
             template,
-            'gauravt.crio.ta@gmail.com',
+            settings.EMAIL_HOST_USER,
             [request.user.email],
         )
         email.fail_silently =False
