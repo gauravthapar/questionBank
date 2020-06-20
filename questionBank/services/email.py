@@ -23,3 +23,15 @@ def send_email_verification_link(request, user):
         return True
     except:
         return False
+
+
+def feedback_reply_email(user):
+    template = render_to_string('questionBank/feedback_template.html',{'name':user.student.name})
+    email = EmailMessage(
+        'Thanks for your feedback',
+        template,
+        settings.EMAIL_HOST_USER,
+        [user.email],
+    )
+    email.fail_silently =False
+    email.send()

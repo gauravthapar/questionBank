@@ -1,19 +1,17 @@
 from django.shortcuts import render , redirect
 from django.http import HttpResponse
-from . forms import SignupForm, StudentForm, QuestionPaperForm
+from questionBank.forms import SignupForm, StudentForm, QuestionPaperForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from . models import QuestionPaper, Student, Feedback, QuestionPaperDetail
+from questionBank.models import QuestionPaper, Student, Feedback, QuestionPaperDetail
 from django.db.models import Q
-from django.core.mail import EmailMessage
-from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
-from . decorators import unauthenticated_user
+from questionBank.decorators import unauthenticated_user
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
-from questionBank.services.email import send_email_verification_link
+from questionBank.services.email import send_email_verification_link, feedback_reply_email
 from questionBank.services.user_verification import get_user_from_uidb64, get_uidb64_from_user
 from questionBank.services.signup_verification_link import verified_user_activation
 
@@ -196,15 +194,8 @@ def contactPage(request):
             message=message
         )
         feedback.save()
-        template = render_to_string('questionBank/feedback_template.html',{'name':request.user.student.name})
-        email = EmailMessage(
-            'Thanks for your feedback',
-            template,
-            settings.EMAIL_HOST_USER,
-            [request.user.email],
-        )
-        email.fail_silently =False
-        email.send()
+        user = request.user
+        feedback_reply_email(user)
         return redirect('home')
     else:
         student = request.user.student
