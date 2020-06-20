@@ -137,30 +137,19 @@ def uploadPage(request):
         subjectCode = request.POST.get('subjectCode').lower()
         year = request.POST.get('year')
         examType = request.POST.get('examType').lower()
-        Files = request.FILES.getlist('File')
-        paper_qs  = QuestionPaperDetail.objects.all().filter(
-            subjectCode=subjectCode,
+        files = request.FILES.getlist('File')
+        paper, created = QuestionPaperDetail.objects.get_or_create(
             subjectName=subjectName,
+            subjectCode=subjectCode,
             year=year,
             examType=examType
+        )
+        for file in files:
+            paper_file = QuestionPaper(
+                File=file,
+                details=paper
             )
-        
-        if paper_qs.exists():
-            return render(request,'questionBank/upload_error.html')
-        else:
-            paper = QuestionPaperDetail(
-            subjectName=subjectName,
-            subjectCode=subjectCode,
-            year=year,
-            examType=examType
-            )   
-            paper.save()
-            for f in Files:
-                paper_file = QuestionPaper(
-                    File=f,
-                    details=paper
-                )
-                paper_file.save()
+            paper_file.save()
             return redirect('home')
     context = {
         'form':form,
