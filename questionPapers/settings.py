@@ -25,7 +25,7 @@ SECRET_KEY = '*%ilssijth=v7_2z@+#d10q(qyjn(2#fl3w!!w3xmzk^m015%5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -43,8 +43,9 @@ INSTALLED_APPS = [
     'storages',
     'six',
 ]
-
+#SEND_BROKEN_LINK_EMAILS=True
 MIDDLEWARE = [
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -78,14 +79,20 @@ WSGI_APPLICATION = 'questionPapers.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'questionbank',
+#         'USER': 'thapar',
+#         'PASSWORD': 'amazing123',
+#         'HOST': 'questionbank.c1gyhjrobmhn.ap-south-1.rds.amazonaws.com',
+#         'PORT': '5432'
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'questionbank',
-        'USER': 'thapar',
-        'PASSWORD': 'amazing123',
-        'HOST': 'questionbank.c1gyhjrobmhn.ap-south-1.rds.amazonaws.com',
-        'PORT': '5432'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -135,30 +142,20 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
-AWS_ACCESS_KEY_ID = 'AKIAR3UJ77PBMGWMFDUL'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'questionbank-bucket'
+# AWS_ACCESS_KEY_ID = 'AKIAR3UJ77PBMGWMFDUL'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'questionbank-bucket'
 
 
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = 'public-read'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL = 'public-read'
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+# MEDIAFILES_LOCATION = 'media'
 
 
-# EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-# SENDGRID_API_KEY = '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'
-# SENDGRID_SANDBOX_MODE_IN_DEBUG = False
-
-MEDIAFILES_LOCATION = 'media'
-
-
-# EMAIL_HOST = 'smtp.sendgrid.net'
-# EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
-# EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -167,3 +164,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'questionbankcontact@gmail.com'
 EMAIL_HOST_PASSWORD = 'questionbank*password'
+
+SERVER_EMAIL = 'questionbankcontact@gmail.com'
+ADMINS = (('gaurav','gauravthapar34@gmail.com'),)
+# MANAGERS = ADMINS

@@ -11,12 +11,11 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 from . decorators import unauthenticated_user
-from . token_generator import account_verification_token
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.encoding import force_bytes, force_text
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
+from questionBank.services.email import send_email_verification_link
+from questionBank.services.user_verification import get_user_from_uidb64, get_uidb64_from_user
+from questionBank.services.signup_verification_link import verified_user_activation
 
 # Create your views here.
 
@@ -29,22 +28,9 @@ def signupuser(request):
             user = form.save(commit=False)
             user.is_active = False
             user.save()
-            current_site = get_current_site(request)
-            message = render_to_string('questionBank/account_verification.html',{
-                'user':user,
-                'domain':current_site.domain,
-                'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-                'token':account_verification_token.make_token(user),
-            })
-            email = EmailMessage(
-                'Verify your Account',
-                message,
-                settings.EMAIL_HOST_USER,
-                [form.cleaned_data.get('email')],
-            )
-            email.fail_silently = False
-            email.send()
-            return HttpResponse('We have sent you an email, please confirm your email address to continue')
+            uidb64 = get_uidb64_from_user(user)
+            if send_email_verification_link(request, user):
+                return render(request, 'questionBank/verification_link_sent.html',{'link_sent':True, 'user':uidb64})
         else:
             context = {
                 'form':form,
@@ -59,12 +45,8 @@ def signupuser(request):
 
 
 def verify_account(request, uidb64, token):
-    try:
-        uid = force_bytes(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExists):
-        user = None
-    if user is not None and account_verification_token.check_token(user, token):
+    if verified_user_activation(uidb64, token):
+        user = get_user_from_uidb64(uidb64)
         user.is_active = True
         user.save()
         return redirect('loginuser')
@@ -72,6 +54,14 @@ def verify_account(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
 
 
+def resend_verification_link(request, uidb64):
+    user = get_user_from_uidb64(uidb64)
+    if user.is_active == False:
+        send_email_verification_link(request, user)
+        return render(request, 'questionBank/verification_link_sent.html',{'link_resent':True, 'user':uidb64})
+    else:
+        return HttpResponse('Account is already verified.')
+    
 
 @login_required(login_url="loginuser")
 def home(request):
@@ -105,13 +95,15 @@ def searchResult(request):
 @unauthenticated_user
 def loginuser(request):
     if request.method == "POST":
+        request_user = User.objects.get(username=request.POST['username'])
+        uidb64 = get_uidb64_from_user(request_user)
         user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
         if user is None:
             context = {
-                'form': AuthenticationForm(),
-                'error': 'username and password does not match' 
+                'not_active': True,
+                'user': uidb64, 
             }
-            return render(request,'questionBank/loginuser.html', context)
+            return render(request, 'questionBank/verification_link_sent.html', context)
         else:
             login(request,user)
             return redirect('home')

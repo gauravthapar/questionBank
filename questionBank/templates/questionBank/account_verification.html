@@ -1,5 +1,5 @@
 {% autoescape off %}
 Hi {{ user.username }},
-Please click on the link to confirm your registration,
-http://{{ domain }}{% url 'verify_account' uidb64=uid token=token %}
+Welcome to Question Bank. Thanks for signing up. Please click on the link to verify your email.
+{{ link }}
 {% endautoescape %}
