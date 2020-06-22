@@ -35,3 +35,4 @@ def feedback_reply_email(user):
     )
     email.fail_silently =False
     email.send()
+    
