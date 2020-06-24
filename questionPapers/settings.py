@@ -133,5 +133,68 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+<<<<<<< Updated upstream
 EMAIL_HOST_USER = 'gauravt.crio.ta@gmail.com'
 EMAIL_HOST_PASSWORD = 'thapar1998'
+=======
+EMAIL_HOST_USER = 'questionbankcontact@gmail.com'
+EMAIL_HOST_PASSWORD = 'questionbank*password'
+
+SERVER_EMAIL = 'questionbankcontact@gmail.com'
+ADMINS = (('gaurav','gauravthapar34@gmail.com'),)
+# MANAGERS = ADMINS
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console': {
+            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
+        },
+        'verbose': {
+            'format': '[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s',
+	        'datefmt': '%Y-%m-%d %H:%M:%S'
+        },
+        'file': {
+            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
+        }
+    },
+    'handlers': {
+        'info_logfile': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'info.log'),
+            'formatter': 'verbose'
+        },
+        'error_logfile': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'error.log'),
+            'formatter': 'verbose'
+        },
+        'warning_logfile': {
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'warning.log'),
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'error_logger': {
+            'handlers': ['error_logfile'],
+            'level': 'ERROR',
+            'propagate': True
+         },
+        'info_logger': {
+            'handlers': ['info_logfile'],
+            'level': 'INFO',
+            'propagate': True
+        },
+        'warning_logger': {
+            'handlers': ['warning_logfile'],
+            'level': 'WARNING',
+            'propagate': True
+        },
+    },
+} 
+>>>>>>> Stashed changes
