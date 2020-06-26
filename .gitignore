@@ -14,3 +14,4 @@ db_REMOTE_5276.sqlite3
 questionBank/__pycache__/
 *.sqlite3
 */__pycache__
+questionBank/logs/
