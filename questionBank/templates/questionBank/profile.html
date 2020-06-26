@@ -8,18 +8,57 @@
 		<div class="card card-body">
 			<a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Back to Dashboard</a>
 			<hr>
-			<h3 style="text-align: center">Account Settings</h3>
-			<hr>
-			{% comment %} <img class="profile-pic" src="{{request.user.customer.profile_pic.url}}" > {% endcomment %}
-		
+			<h3 style="text-align: center"></h3>
 		</div>
 	</div>
-	<div class="col-md-9">
+	<div class="col">
 		<div class="card card-body">
 			<form method="POST" action="" enctype="multipart/form-data">
 				{% csrf_token %}
-				{{form.as_p}}
-		
+			<div class="form-group">
+				<label for="name">Name</label>
+				<input type="text" class="form-control" id="name" name='name' value="{{ student.name }}" placeholder="Enter Your Name"
+				 style="width: auto;">
+			</div>
+			<div class="form-group">
+				<label for="name">Email</label>
+				<input type="email" class="form-control" id="email" name='email' value="{{ student.email }}" placeholder="Enter Your Email"  
+				style="width: auto;">
+			</div>
+			<div class="form-group">
+				<label for="id_contact_no">Contact no.</label>
+				<input type="text" class="form-control" id="id_contact_no" maxlength="13" value="{{ student.contact_no }}" name='contact_no' placeholder="Enter Your Name"
+				style="width: auto;">
+			</div>
+			<div class="form-group">
+				<label for="id_Class">Class </label> <select class="form-control" name="Class" value="{{ student.Class }}" required="" id="id_Class" style="width: auto;" type="text">
+				<option value="{{ student.Class }}">{{ student.Class }}</option>
+
+				<option value="B.Tech-CSE">B.Tech-CSE</option>
+
+				<option value="B.Tech-ECE">B.Tech-ECE</option>
+
+				<option value="B.Tech-ECSE">B.Tech-ECSE</option>
+
+				<option value="M.Tech-CSE">M.Tech-CSE</option>
+
+				<option value="M.Tech-ECE">M.Tech-ECE</option>
+
+				<option value="M.Tech-ECSE">M.Tech-ECSE</option>
+
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="id_semester">Semester</label>
+				<input type="text" class="form-control" id="id_semester" name='semester' value="{{ student.semester }}" maxlength="5" placeholder="Enter Your Semester"
+				style="width: auto;">
+			</div>
+			<div class="form-group">
+				<label for="id_roll_no">Roll no.</label>
+				<input type="text" class="form-control" id="id_roll_no" maxlength="15" value="{{ student.roll_no }}" name="roll_no" maxlength="5" placeholder="Enter Your Semester"
+				style="width: auto;">
+			</div>
+
 			<input class="btn btn-primary" type="submit" name="Update Information">
 			</form> 
             <hr>

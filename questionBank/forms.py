@@ -27,10 +27,14 @@ class StudentForm(ModelForm):
         exclude = ['user']
 
 
-class QuestionPaperForm(ModelForm):
-    class Meta:
-        model = QuestionPaper
-        fields = '__all__'
+class QuestionPaperForm(forms.Form):
+    File = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+    subjectName = forms.CharField(max_length=30)
+    subjectCode = forms.CharField(max_length=30)
+    year = forms.CharField(max_length=30)
+    examType = forms.CharField(max_length=30)
+    
+    
 
 
     

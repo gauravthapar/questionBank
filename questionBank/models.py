@@ -13,22 +13,12 @@ class Student(models.Model):
         ('M.Tech-ECE','M.Tech-ECE'),
         ('M.Tech-ECSE','M.Tech-ECSE'),
     )
-    SEMESTER = (
-        ('1','1'),
-        ('2','2'),
-        ('3','3'),
-        ('4','4'),
-        ('5','5'),
-        ('6','6'),
-        ('7','7'),
-        ('8','8'),
-    )
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length = 200, null=True)
     email = models.EmailField(null=True)
     contact_no = models.CharField(max_length=13,blank=True, help_text='contact phone number')
     Class = models.CharField(max_length=20, null=True, choices=CLASS)
-    semester = models.CharField(max_length=5, null=True, choices=SEMESTER)
+    semester = models.CharField(max_length=5, null=True)
     roll_no = models.CharField(max_length=15, null=True)
 
     
@@ -36,13 +26,12 @@ class Student(models.Model):
         return self.name
     
 
-class QuestionPaper(models.Model):
+class QuestionPaperDetail(models.Model):
     EXAMTYPE = (
         ('Minor-1','Minor-1'),
         ('Minor-2','Minor-2'),
         ('Major','Major')
     )
-    File = models.FileField(null=True, blank=True)
     subjectName = models.CharField(max_length=100, null=True)
     subjectCode = models.CharField(max_length=15, null=True)
     year = models.CharField(max_length=4, null=True)
@@ -51,6 +40,14 @@ class QuestionPaper(models.Model):
 
     def __str__(self):
         return self.subjectName
+
+    
+
+class QuestionPaper(models.Model):
+    File = models.FileField(null=True, blank=True)
+    details = models.ForeignKey(QuestionPaperDetail, null=True, on_delete=models.CASCADE)
+    
+
 
     @property
     def fileURL(self):
