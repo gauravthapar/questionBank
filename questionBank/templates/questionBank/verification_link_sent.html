@@ -1,0 +1,20 @@
+{% extends "questionBank/main.html" %}
+
+{% block content %}
+    <div class = "container">
+        
+        {% if link_resent %}
+            <br><h4>Verification</h4><br>
+            <p> Thanks for Signing up, We have resent you verification link on your email. Please click on the link to verify. </p>
+        {% endif %}
+        {% if link_sent %}
+            <br><h4>Verification</h4><br>
+            <p> Thanks for Signing up, We have sent you verification link on your email. Please click on the link to verify. </p>
+        {% endif %}
+        {% if not_active %}
+            <br><h4> Not Verified</h4><br>
+            <p> Looks like you have not verified your email. Please verify your email by clicking the link sent to your email.</p>
+        {% endif %}
+       <a class="btn btn-primary btn-sm"href="{% url 'resend_verification_link' user %}">Resend </a>
+    </div>
+{% endblock %}

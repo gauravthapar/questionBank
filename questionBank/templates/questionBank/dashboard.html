@@ -1,8 +1,8 @@
 {% extends 'questionBank/main.html' %}
 {% load static %}
-{% block content %}
-<h5> home </h5>
-
+{% block content %}<br>
+<div class="container">
+<h4> Subjects </h4>
 <br>
 <div class="row">
 	<div class="col-md">
@@ -10,27 +10,54 @@
 			<table class="table table-sm">
 				<tr>
                     <th>Serial No.</th>
-                    <th>Uploaded on</th>
+					<th>Uploaded on </th>
 					<th>subjectName</th>
 					<th>subjectCode</th>
 					<th>year</th>
 					<th>examType</th>
-                    <th>File</th>
+					<th>View</th>
 				</tr>
 				{% for questionPaper in questionPapers %}
 					<tr>
                         <td>{{ forloop.counter }} </td>
-                        <td>{{ questionPaper.date_created|date:'M j,Y' }}</td>
+						<td>{{ questionPaper.date_created|date:'M j, Y'  }}</td>
 						<td>{{ questionPaper.subjectName }}</td>
 						<td>{{ questionPaper.subjectCode }}</td>
 						<td>{{ questionPaper.year }}</td>
                         <td>{{ questionPaper.examType }}</td>
-						<td><a href="{{ questionPaper.fileURL }}" download> {{questionPaper.File}}</td>
+						<td><a class="btn btn-outline-info btn-sm "href="{% url 'viewpage' questionPaper.id%}">View</a></td>
 					</tr>
 				{% endfor %}
 			</table>
 		</div>
 	</div>
 </div>
+</div>
+<br>
+<div class="pagination">
+	{% if questionPapers.has_previous %}
+		<a class="pagination-action" href="?page=1">
+			<i class="fa fa-angle-double-left" aria-hidden="true"></i> </a>
+		<a class="pagination-action" href="?page={{ questionPapers.previous_page_number }}">
+			<i class="fa fa-angle-left" aria-hidden="true"></i>
+		</a>
+	{% endif %}
+	{% for num in questionPapers.paginator.page_range %}
+		{% if questionPapers.number == num %}
+			<span class="pagination-number pagination-current">{{ num }}</span>
+		{% elif num > questionPapers.number|add:'-3' and num < questionPapers.number|add:'3' %}
+			<a class="pagination-number" href="?page={{ num }}">{{ num }}</a>
+		{% endif %}
+	{% endfor %}
+	{% if questionPapers.has_next %}
+		<a class="pagination-action" href="?page={{ questionPapers.next_page_number }}">
+			<i class="fa fa-angle-right" aria-hidden="true"></i>
+		</a>
+		<a class="pagination-action" href="?page={{ questionPapers.paginator.num_pages }}">
+			<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+		</a>
+	{% endif %}
+</div>
+
 
 {% endblock %}
