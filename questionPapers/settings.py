@@ -84,8 +84,8 @@ WSGI_APPLICATION = 'questionPapers.wsgi.application'
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'questionbank',
 #         'USER': 'thapar',
-#         'PASSWORD': 'amazing123',
-#         'HOST': 'questionbank.c1gyhjrobmhn.ap-south-1.rds.amazonaws.com',
+#         'PASSWORD': '',
+#         'HOST': '',
 #         'PORT': '5432'
 #     }
 # }
@@ -142,9 +142,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
-# AWS_ACCESS_KEY_ID = 'AKIAR3UJ77PBMGWMFDUL'
-# AWS_SECRET_ACCESS_KEY = '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'
-# AWS_STORAGE_BUCKET_NAME = 'questionbank-bucket'
+# AWS_ACCESS_KEY_ID = ''
+# AWS_SECRET_ACCESS_KEY = ''
+# AWS_STORAGE_BUCKET_NAME = ''
 
 
 # AWS_S3_FILE_OVERWRITE = False
@@ -164,7 +164,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = 'questionbankcontact@gmail.com'
-EMAIL_HOST_PASSWORD = 'questionbank*password'
+EMAIL_HOST_PASSWORD = ''
 
 SERVER_EMAIL = 'questionbankcontact@gmail.com'
 ADMINS = (('gaurav','gauravthapar34@gmail.com'),)
