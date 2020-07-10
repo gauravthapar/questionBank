@@ -23,6 +23,9 @@ This project was setup using python 3.7 So it's recommended to install it and us
 10. password reset option.
 password forgot option [link sent to the user'email, after clicking and verifying , user can change the password.]
 
+## Tech stack used
+Django, HTML, css, Bootstrap, sqllite(will use other db for deploying) .
+
 
 ## Purpose
 
