@@ -16,12 +16,12 @@
             <form method="POST">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" name="username" autocomplete="off" class="form-control" id="username">
+                    <label for="username">Username</label><span style="color:#dc3545;"> *</span>
+                    <input type="text" name="username" required autocomplete="off" class="form-control" id="username">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" autocomplete="off" class="form-control" id="password">
+                    <label for="password">Password</label><span style="color:#dc3545;"> *</span>
+                    <input type="password" name="password" required autocomplete="off" class="form-control" id="password">
                 </div>
                 <button type="submit" class="btn btn-dark">Login</button>
             </form>

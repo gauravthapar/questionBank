@@ -14,6 +14,7 @@ from django.core.paginator import Paginator
 from questionBank.services.email import send_email_verification_link, feedback_reply_email
 from questionBank.services.user_verification import get_user_from_uidb64, get_uidb64_from_user
 from questionBank.services.signup_verification_link import verified_user_activation
+from questionBank.services.files import check_file_extension
 
 # Create your views here.
 
@@ -138,6 +139,8 @@ def uploadPage(request):
         year = request.POST.get('year')
         examType = request.POST.get('examType').lower()
         files = request.FILES.getlist('File')
+        if not check_file_extension(files):
+            return render(request, 'questionBank/upload1.html', {"errors":"Please check the format of the file"})
         paper, created = QuestionPaperDetail.objects.get_or_create(
             subjectName=subjectName,
             subjectCode=subjectCode,

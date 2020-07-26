@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from phone_field import PhoneField
-
+import datetime
 # Create your models here.
 
 class Student(models.Model):
@@ -13,12 +13,23 @@ class Student(models.Model):
         ('M.Tech-ECE','M.Tech-ECE'),
         ('M.Tech-ECSE','M.Tech-ECSE'),
     )
+    SEMESTER = (
+        ('1',"1"),
+        ('2',"2"),
+        ('3',"3"),
+        ('4',"4"),
+        ('5',"5"),
+        ('6',"6"),
+        ('7',"7"),
+        ('8',"8"),
+        
+    )
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length = 200, null=True)
     email = models.EmailField(null=True)
     contact_no = models.CharField(max_length=13,blank=True, help_text='contact phone number')
     Class = models.CharField(max_length=20, null=True, choices=CLASS)
-    semester = models.CharField(max_length=5, null=True)
+    semester = models.CharField(max_length=2, choices=SEMESTER)
     roll_no = models.CharField(max_length=15, null=True)
 
     
@@ -27,15 +38,17 @@ class Student(models.Model):
     
 
 class QuestionPaperDetail(models.Model):
-    EXAMTYPE = (
+    EXAM_TYPE = (
         ('Minor-1','Minor-1'),
         ('Minor-2','Minor-2'),
         ('Major','Major')
     )
+    YEAR_CHOICES = [(r,r) for r in range(2005, datetime.date.today().year+1)]
+
     subjectName = models.CharField(max_length=100, null=True)
     subjectCode = models.CharField(max_length=15, null=True)
-    year = models.CharField(max_length=4, null=True)
-    examType = models.CharField(max_length=50, null=True, choices=EXAMTYPE)
+    year = models.IntegerField(choices=YEAR_CHOICES)       
+    examType = models.CharField(max_length=50, null=True, choices=EXAM_TYPE)
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

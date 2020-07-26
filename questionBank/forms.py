@@ -1,3 +1,4 @@
+import datetime
 from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.models import User
@@ -28,11 +29,17 @@ class StudentForm(ModelForm):
 
 
 class QuestionPaperForm(forms.Form):
+    YEAR_CHOICES = [(r,r) for r in range(2005, datetime.date.today().year+1)]
+    EXAM_TYPE = (
+        ('Minor-1','Minor-1'),
+        ('Minor-2','Minor-2'),
+        ('Major','Major')
+    )
     File = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
     subjectName = forms.CharField(max_length=30)
     subjectCode = forms.CharField(max_length=30)
-    year = forms.CharField(max_length=30)
-    examType = forms.CharField(max_length=30)
+    year = forms.TypedChoiceField(choices=YEAR_CHOICES)  
+    examType = forms.TypedChoiceField(choices=EXAM_TYPE)
     
     
 

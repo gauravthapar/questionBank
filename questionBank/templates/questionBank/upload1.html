@@ -2,30 +2,84 @@
 {% block content %}
 <dvi class="container">
 <div class="col-md-9" style="margin-left: 200px;">
+            {% if errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ errors }}
+                </div>
+            {% endif %}
     <div class="card card-body">
         <form method="POST" action="" enctype="multipart/form-data">
             {% csrf_token %}
             {% comment %} {{form.as_p}} {% endcomment %}
             <div class="form-group">
-                <label for="id_File1">File input</label>
+                <label for="id_File1">File input</label><span style="color:#dc3545;"> *</span>
                 <input type="file" class="form-control-file" multiple required id="id_File" name="File" style="width: auto;">
             </div>
             <div class="form-group">
-                <label for="id_subjectName">Subject Name</label>
-                <input type="text" class="form-control" maxlenght="30" id="id_subjectName" name="subjectName" style="width: auto;">
+                <label for="id_subjectName">Subject Name</label><span style="color:#dc3545;"> *</span>
+                <input type="text" class="form-control" maxlenght="30" required id="id_subjectName" name="subjectName" style="width: auto;">
             </div>
             <div class="form-group">
-                <label for="id_subjectCode">Subject Code</label>
-                <input type="text" class="form-control" maxlenght="30" id="id_subjectCode" name="subjectCode" style="width: auto;">
+                <label for="id_subjectCode">Subject Code</label><span style="color:#dc3545;"> *</span>
+                <input type="text" class="form-control" maxlenght="30" required id="id_subjectCode" name="subjectCode" style="width: auto;">
             </div>
-            <div class="form-group">
-                <label for="id_year">Year</label>
-                <input type="text" class="form-control" maxlenght="10" id="id_year" name="year" style="width: auto;">
+            <div class="form-group" style="width: auto;">
+                <label for="id_year" style="width: auto;">Year</label><span style="color:#dc3545;"> *</span> <select required class="form-control" name="year" id="id_year" style="width: auto;">
+                <option value="" selected="">-------</option>
+
+                <option value="2005">2005</option>
+
+                <option value="2006">2006</option>
+
+                <option value="2007">2007</option>
+
+                <option value="2008">2008</option>
+
+                <option value="2009">2009</option>
+
+                <option value="2010">2010</option>
+
+                <option value="2011">2011</option>
+
+                <option value="2012">2012</option>
+
+                <option value="2013">2013</option>
+
+                <option value="2014">2014</option>
+
+                <option value="2015">2015</option>
+
+                <option value="2016">2016</option>
+
+                <option value="2017">2017</option>
+
+                <option value="2018">2018</option>
+
+                <option value="2019">2019</option>
+
+                <option value="2020">2020</option>
+
+                </select>
             </div>
-            <div class="form-group">
-                <label for="id_examType">Exam Type</label>
-                <input type="text" class="form-control" id="id_examType" maxlenght="30" name="examType" style="width: auto;">
-            </div>    
+
+            <div class="form-row field-examType">
+                <div>
+                    <label class="required" for="id_examType">ExamType</label><span style="color:#dc3545;"> *</span>
+                        
+                    <select  class="form-control" required name="examType" required="" id="id_examType">
+                    <option value="" selected="">-------</option>
+
+                    <option value="Minor-1">Minor-1</option>
+
+                    <option value="Minor-2">Minor-2</option>
+
+                    <option value="Major">Major</option>
+
+                    </select>
+
+                </div>
+        </div> 
+        <br>
         <input class="btn btn-primary" type="submit" name="Update Information">
         </form> 
         <hr>

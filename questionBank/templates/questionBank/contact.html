@@ -5,16 +5,16 @@
     <form action="{% url 'contactus' %}" method="post">
     {% csrf_token %}
   <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" class="form-control" id="name" name='name' value={{student.name}} placeholder="Enter Your Name">
+    <label for="name">Name</label><span style="color:#dc3545;"> *</span>
+    <input type="text" class="form-control" required id="name" name='name' value={{student.name}} placeholder="Enter Your Name">
   </div>
   <div class="form-group">
-    <label for="name">Email</label>
-    <input type="email" class="form-control" id="email" name='email' value={{student.email}} placeholder="Enter Your Email">
+    <label for="name">Email</label><span style="color:#dc3545;"> *</span>
+    <input type="email" class="form-control" required id="email" name='email' value={{student.email}} placeholder="Enter Your Email">
   </div>
    <div class="form-group">
-    <label for="desc">Message</label>
-    <textarea class="form-control" id="message" name='message' rows="3"></textarea>
+    <label for="desc">Message</label><span style="color:#dc3545;"> *</span>
+    <textarea class="form-control" required id="message" name='message' rows="3"></textarea>
   </div>
         <button type="submit" class="btn btn-primary">Submit</button>
 </form>
