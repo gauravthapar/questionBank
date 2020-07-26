@@ -1,5 +1,8 @@
 # questionBank
 
+A portal to provide smart solution for students to never miss out on important questions by enabling registered users to upload images of question papers under it’s favourable category. These further can be accessed by students to download using a very interactive UI. Email verification is used for registeration.
+
+
 ## How to setup:
 
 This project was setup using python 3.7 So it's recommended to install it and use it. Virtual enviornment using venv is recommended for development.
@@ -26,8 +29,3 @@ password forgot option [link sent to the user'email, after clicking and verifyin
 ## Tech stack used
 Django, HTML, css, Bootstrap, sqllite(will use other db for deploying) .
 
-
-## Purpose
-
-made for the students of the college to make their life easy. Now students can get previous year question papers pn single platform, this will not waste the time of 
-the students one night before the exam. 
