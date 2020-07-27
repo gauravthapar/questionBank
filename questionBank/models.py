@@ -55,7 +55,7 @@ class QuestionPaperDetail(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.subjectName
+        return str(self.subjectName)+ " -- " +str(self.subjectCode)
 
     
 
@@ -63,7 +63,8 @@ class QuestionPaper(models.Model):
     File = models.FileField(null=True, blank=True)
     details = models.ForeignKey(QuestionPaperDetail, null=True, on_delete=models.CASCADE)
     
-
+    def __str__(self):
+        return "Question paper of "+str(self.details.subjectName) +" -- "+str(self.details.subjectCode)
 
     @property
     def fileURL(self):
