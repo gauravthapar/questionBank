@@ -38,9 +38,6 @@ class Student(models.Model):
     
 
 class QuestionPaperDetail(models.Model):
-    class Meta:
-        unique_together = ("subjectName","subjectCode")
-
     EXAM_TYPE = (
         ('Minor-1','Minor-1'),
         ('Minor-2','Minor-2'),
