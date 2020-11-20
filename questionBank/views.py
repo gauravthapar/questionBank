@@ -134,8 +134,8 @@ def uploadPage(request):
     form = QuestionPaperForm()
     if request.method == "POST":
         form = QuestionPaperForm(request.POST, request.FILES)
-        subjectName = request.POST.get('subjectName').lower()
-        subjectCode = request.POST.get('subjectCode').lower()
+        subjectName = request.POST.get('subjectName').capitalize()
+        subjectCode = request.POST.get('subjectCode').capitalize()
         year = request.POST.get('year')
         examType = request.POST.get('examType')
         files = request.FILES.getlist('File')
