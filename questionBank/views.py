@@ -137,7 +137,7 @@ def uploadPage(request):
         subjectName = request.POST.get('subjectName').lower()
         subjectCode = request.POST.get('subjectCode').lower()
         year = request.POST.get('year')
-        examType = request.POST.get('examType').lower()
+        examType = request.POST.get('examType')
         files = request.FILES.getlist('File')
         if not check_file_extension(files):
             return render(request, 'questionBank/upload1.html', {"errors":"Please check the format of the file"})
