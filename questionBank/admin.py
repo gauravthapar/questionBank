@@ -34,7 +34,13 @@ class QuestionPaperAdmin(admin.ModelAdmin):
     def file_extension(self, object):
         return os.path.splitext(object.File.name)[1]  
 
-admin.site.register(Student)
+class StudentAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "email", "contact_no", "roll_no")
+    search_fields = ("id", "name", "email", "contact_no", "roll_no")
+    list_filter = ("Class",)
+    list_display_links = ("name",)
+
+admin.site.register(Student, StudentAdmin)
 admin.site.register(QuestionPaper, QuestionPaperAdmin)
 admin.site.register(QuestionPaperDetail, QuestionPaperDetailAdmin)
 admin.site.register(Feedback)
