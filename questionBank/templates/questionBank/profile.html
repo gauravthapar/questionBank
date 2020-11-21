@@ -3,91 +3,90 @@
 
 
 <br>
-<div class="row">
-	<div class="col-md-3">
-		<div class="card card-body">
-			<a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Back to Dashboard</a>
-			<hr>
-			<h3 style="text-align: center"></h3>
-		</div>
-	</div>
-	<div class="col">
-		<div class="card card-body">
-			<form method="POST" action="" enctype="multipart/form-data">
-				{% csrf_token %}
+<div class="container">
+	<div class="card card-body">
+		<form method="POST" action="" enctype="multipart/form-data">
+			{% csrf_token %}
 			<div class="form-group">
 				<label for="name">Name</label><span style="color:#dc3545;"> *</span>
-				<input type="text" class="form-control" id="name" name='name' value="{{ student.name }}" placeholder="Enter Your Name"
-				 style="width: auto;">
+				<input type="text" class="form-control" id="name" name='name' value="{{ student.name }}"
+					placeholder="Enter Your Name" style="width: auto;">
 			</div>
 			<div class="form-group">
 				<label for="name">Email</label><span style="color:#dc3545;"> *</span>
-				<input type="email" class="form-control" id="email" name='email' value="{{ student.email }}" placeholder="Enter Your Email"  
-				style="width: auto;">
+				<input type="email" class="form-control" id="email" name='email' value="{{ student.email }}"
+					placeholder="Enter Your Email" style="width: auto;">
 			</div>
 			<div class="form-group">
 				<label for="id_contact_no">Contact no.</label>
-				<input type="text" class="form-control" id="id_contact_no" maxlength="13" value="{{ form.contact_no.value }}" name='contact_no' placeholder="Enter Your 10 digit number"
-				style="width: auto;">
+				<input type="text" class="form-control" id="id_contact_no" maxlength="13"
+					value="{{ form.contact_no.value }}" name='contact_no' placeholder="Enter Your 10 digit number"
+					style="width: auto;">
 			</div>
 			<div class="form-group">
-				<label for="id_Class">Class </label> <select class="form-control" name="Class" id="id_Class" style="width: auto;" type="text">
-				<option value="" selected="">-------</option>
+				<label for="id_Class">Class </label> <select class="form-control" name="Class" id="id_Class"
+					style="width: auto;" type="text">
+					<option value="" selected="">-------</option>
 
-				<option value="B.Tech-CSE" {% if form.Class.value == "B.Tech-CSE"%} selected="selected" {% endif %} >B.Tech-CSE</option>
+					<option value="B.Tech-CSE" {% if form.Class.value == "B.Tech-CSE"%} selected="selected" {% endif %}>
+						B.Tech-CSE</option>
 
-				<option value="B.Tech-ECE" {% if form.Class.value == "B.Tech-ECE"%} selected="selected" {% endif %} >B.Tech-ECE</option>
+					<option value="B.Tech-ECE" {% if form.Class.value == "B.Tech-ECE"%} selected="selected" {% endif %}>
+						B.Tech-ECE</option>
 
-				<option value="B.Tech-ECSE" {% if form.Class.value == "B.Tech-ECSE"%} selected="selected" {% endif %} >B.Tech-ECSE</option>
+					<option value="B.Tech-ECSE" {% if form.Class.value == "B.Tech-ECSE"%} selected="selected"
+						{% endif %}>B.Tech-ECSE</option>
 
-				<option value="M.Tech-CSE" {% if form.Class.value == "M.Tech-CSE"%} selected="selected" {% endif %} >M.Tech-CSE</option>
+					<option value="M.Tech-CSE" {% if form.Class.value == "M.Tech-CSE"%} selected="selected" {% endif %}>
+						M.Tech-CSE</option>
 
-				<option value="M.Tech-ECE"{% if form.Class.value == "M.Tech-ECE"%} selected="selected" {% endif %} >M.Tech-ECE</option>
+					<option value="M.Tech-ECE" {% if form.Class.value == "M.Tech-ECE"%} selected="selected" {% endif %}>
+						M.Tech-ECE</option>
 
-				<option value="M.Tech-ECSE" {% if form.Class.value == "M.Tech-ECSE"%} selected="selected" {% endif %}>M.Tech-ECSE</option>
+					<option value="M.Tech-ECSE" {% if form.Class.value == "M.Tech-ECSE"%} selected="selected"
+						{% endif %}>M.Tech-ECSE</option>
 
 				</select>
 			</div>
 			<div class="form-row field-semester">
-                <div>
-                    <label class="required" for="id_semester">Semester:</label>
-                        
-                    <select name="semester" class="form-control" id="id_semester">
-					<option value="" selected="">---------</option>
+				<div>
+					<label class="required" for="id_semester">Semester:</label>
 
-					<option value="1" {% if form.semester.value == "1"%} selected="selected" {% endif %}>1</option>
+					<select name="semester" class="form-control" id="id_semester">
+						<option value="" selected="">---------</option>
 
-					<option value="2" {% if form.semester.value == "2"%} selected="selected" {% endif %}>2</option>
+						<option value="1" {% if form.semester.value == "1"%} selected="selected" {% endif %}>1</option>
 
-					<option value="3" {% if form.semester.value == "3"%} selected="selected" {% endif %}>3</option>
+						<option value="2" {% if form.semester.value == "2"%} selected="selected" {% endif %}>2</option>
 
-					<option value="4" {% if form.semester.value == "4"%} selected="selected" {% endif %}>4</option>
+						<option value="3" {% if form.semester.value == "3"%} selected="selected" {% endif %}>3</option>
 
-					<option value="5" {% if form.semester.value == "5"%} selected="selected" {% endif %}>5</option>
+						<option value="4" {% if form.semester.value == "4"%} selected="selected" {% endif %}>4</option>
 
-					<option value="6" {% if form.semester.value == "6"%} selected="selected" {% endif %}>6</option>
+						<option value="5" {% if form.semester.value == "5"%} selected="selected" {% endif %}>5</option>
 
-					<option value="7" {% if form.semester.value == "7"%} selected="selected" {% endif %}>7</option>
+						<option value="6" {% if form.semester.value == "6"%} selected="selected" {% endif %}>6</option>
 
-					<option value="8" {% if form.semester.value == "8"%} selected="selected" {% endif %}>8</option>
+						<option value="7" {% if form.semester.value == "7"%} selected="selected" {% endif %}>7</option>
+
+						<option value="8" {% if form.semester.value == "8"%} selected="selected" {% endif %}>8</option>
 
 					</select>
-                </div> 
-        </div><br>
+				</div>
+			</div><br>
 			<div class="form-group">
 				<label for="id_roll_no">Roll no.</label>
-				<input type="text" class="form-control" id="id_roll_no" maxlength="15"  value="{{ form.roll_no.value }}" name="roll_no" maxlength="5" placeholder="Enter Your Roll no."
-				style="width: auto;">
+				<input type="text" class="form-control" id="id_roll_no" maxlength="15" value="{{ form.roll_no.value }}"
+					name="roll_no" maxlength="5" placeholder="Enter Your Roll no." style="width: auto;">
 			</div>
 
 			<input class="btn btn-primary" type="submit" name="Update Information">
-			</form> 
-            <hr>
-            {% for message in messages %}
-				<p id="messages">{{message}}</p>
-			{% endfor %}	
-            <hr>
-		</div>
+		</form>
+		<hr>
+		{% for message in messages %}
+		<p id="messages">{{message}}</p>
+		{% endfor %}
+		<hr>
 	</div>
 </div>
 
