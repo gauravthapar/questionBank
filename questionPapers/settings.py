@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_filters',
     'storages',
     'six',
+    'debug_toolbar',
 ]
 #SEND_BROKEN_LINK_EMAILS=True
 MIDDLEWARE = [
@@ -53,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'questionPapers.urls'
@@ -170,3 +172,7 @@ SERVER_EMAIL = 'questionbankcontact@gmail.com'
 ADMINS = (('gaurav','gauravthapar34@gmail.com'),)
 # MANAGERS = ADMINS
 
+# for django debug toolbar
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
