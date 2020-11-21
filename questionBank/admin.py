@@ -40,7 +40,20 @@ class StudentAdmin(admin.ModelAdmin):
     list_filter = ("Class",)
     list_display_links = ("name",)
 
+class FeedbackAdmin(admin.ModelAdmin):
+    list_display = ("student_id", "name", "email", "student_roll_no")
+    list_select_related = ("student",)
+    search_fields = ("student__id", "name", "email", "student__roll_no")
+    list_filter = ("student__Class",)
+    list_display_links = ("name",)
+
+    def student_id(self, object):
+        return object.student.id
+
+    def student_roll_no(self, object):
+        return object.student.roll_no
+
 admin.site.register(Student, StudentAdmin)
 admin.site.register(QuestionPaper, QuestionPaperAdmin)
 admin.site.register(QuestionPaperDetail, QuestionPaperDetailAdmin)
-admin.site.register(Feedback)
+admin.site.register(Feedback,FeedbackAdmin)
