@@ -26,7 +26,6 @@ class Student(models.Model):
     )
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length = 200, null=True)
-    email = models.EmailField(null=True)
     contact_no = models.CharField(max_length=13,blank=True, help_text='contact phone number')
     Class = models.CharField(max_length=20, blank=True, choices=CLASS)
     semester = models.CharField(max_length=2, choices=SEMESTER, blank=True)
