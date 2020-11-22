@@ -73,8 +73,6 @@ class QuestionPaper(models.Model):
 
 class Feedback(models.Model):
     student = models.ForeignKey(Student, null=True,blank=True, on_delete=models.SET_NULL)
-    name = models.CharField(max_length=200, null=True)
-    email = models.EmailField(null=True)
     message = models.TextField(null=True)
     
     def __str__(self):
