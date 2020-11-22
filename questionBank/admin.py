@@ -35,8 +35,8 @@ class QuestionPaperAdmin(admin.ModelAdmin):
         return os.path.splitext(object.File.name)[1]  
 
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "email", "contact_no", "roll_no")
-    search_fields = ("id", "name", "email", "contact_no", "roll_no")
+    list_display = ("id", "name", "contact_no", "roll_no")
+    search_fields = ("id", "name", "contact_no", "roll_no")
     list_filter = ("Class",)
     list_display_links = ("name",)
 
